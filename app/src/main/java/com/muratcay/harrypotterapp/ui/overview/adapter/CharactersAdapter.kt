@@ -9,10 +9,13 @@ import com.muratcay.harrypotterapp.databinding.ItemCharacterDesignBinding
 
 class CharactersAdapter : ListAdapter<CharacterModel, CharactersAdapter.CharactersViewHolder>(DiffCallback) {
 
+    var onClick: (CharacterModel) -> Unit = {}
+
     class CharactersViewHolder(private val binding: ItemCharacterDesignBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(character: CharacterModel) {
+        fun bind(character: CharacterModel, onClick: (CharacterModel) -> Unit = {}) {
             binding.characterModel = character
             binding.executePendingBindings()    // bindingAdapter ı hızlı bir şekilde yapması için
+            binding.root.setOnClickListener { onClick(character) }
         }
     }
 
@@ -21,7 +24,6 @@ class CharactersAdapter : ListAdapter<CharacterModel, CharactersAdapter.Characte
     }
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
-        val character = getItem(position)
-        holder.bind(character)
+        holder.bind(getItem(position), onClick)
     }
 }

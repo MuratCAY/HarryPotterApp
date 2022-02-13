@@ -1,8 +1,11 @@
 package com.muratcay.harrypotterapp.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CharacterModel(
     @SerializedName("house")
     val house: String,
@@ -12,4 +15,4 @@ data class CharacterModel(
     val imageUrl: String,
     @SerializedName("name") 
     val name: String
-)
+): Parcelable
